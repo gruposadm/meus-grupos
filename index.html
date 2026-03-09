@@ -17,8 +17,6 @@ text-align:center;
 padding:20px;
 }
 
-/* caixa transparente */
-
 .container{
 background: rgba(0,0,0,0.6);
 padding:30px;
@@ -26,8 +24,6 @@ border-radius:20px;
 max-width:500px;
 margin:auto;
 }
-
-/* botão contato */
 
 .contact{
 display:inline-block;
@@ -44,16 +40,7 @@ transition:0.3s;
 
 .contact:hover{
 transform:scale(1.1);
-background:#ffb74d;
 }
-
-/* títulos */
-
-h2{
-margin-top:40px;
-}
-
-/* botões */
 
 .button{
 display:block;
@@ -64,28 +51,11 @@ color:white;
 text-decoration:none;
 border-radius:12px;
 font-size:16px;
-position:relative;
-overflow:hidden;
 transition:0.3s;
 }
 
 .button:hover{
 transform:scale(1.08);
-}
-
-.button::before{
-content:'';
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
-transition:0.6s;
-}
-
-.button:hover::before{
-left:100%;
 }
 
 .whatsapp{
@@ -96,6 +66,13 @@ background:#25D366;
 background:#1877F2;
 }
 
+.counter{
+font-size:13px;
+opacity:0.8;
+display:block;
+margin-top:5px;
+}
+
 </style>
 </head>
 
@@ -104,44 +81,81 @@ background:#1877F2;
 <div class="container">
 
 <h1>📢 Entre nos Meus Grupos</h1>
-<img src="https://visitor-badge.laobi.icu/badge?page_id=gruposadm.meus-grupos">
+
 <a class="contact" href="https://wa.me/5522981828421" target="_blank">
 💬 Falar com o ADM para anunciar
 </a>
 
 <h2>📱 Grupos do WhatsApp</h2>
 
-<a class="button whatsapp" href="https://chat.whatsapp.com/ENDyYGquFFO0CvlBxXpKhn" target="_blank">
+<a class="button whatsapp" href="https://chat.whatsapp.com/ENDyYGquFFO0CvlBxXpKhn" onclick="clickCount('grupo1')">
 Bazar Nova Friburgo e Região
+<span class="counter" id="grupo1">Carregando...</span>
 </a>
 
-<a class="button whatsapp" href="https://chat.whatsapp.com/JZo951INQ2gCKXXUglXZhq" target="_blank">
-ALERTA DE TRÂNSITO NOVA FRIBURGO E REGIÃO 📢
+<a class="button whatsapp" href="https://chat.whatsapp.com/JZo951INQ2gCKXXUglXZhq" onclick="clickCount('grupo2')">
+ALERTA DE TRÂNSITO NOVA FRIBURGO
+<span class="counter" id="grupo2">Carregando...</span>
 </a>
 
-<a class="button whatsapp" href="https://chat.whatsapp.com/GaXL6SSDrDcL51xfpZLCwG" target="_blank">
-ALERTA DE TRÂNSITO NOVA FRIBURGO E REGIÃO 2 📢
+<a class="button whatsapp" href="https://chat.whatsapp.com/GaXL6SSDrDcL51xfpZLCwG" onclick="clickCount('grupo3')">
+ALERTA DE TRÂNSITO NOVA FRIBURGO 2
+<span class="counter" id="grupo3">Carregando...</span>
 </a>
 
 <h2>👍 Grupos do Facebook</h2>
 
-<a class="button facebook" href="https://www.facebook.com/groups/motosnf" target="_blank">
+<a class="button facebook" href="https://www.facebook.com/groups/motosnf" onclick="clickCount('grupo4')">
 Compra & Venda Nova Friburgo
+<span class="counter" id="grupo4">Carregando...</span>
 </a>
 
-<a class="button facebook" href="https://www.facebook.com/groups/432400596968122" target="_blank">
+<a class="button facebook" href="https://www.facebook.com/groups/432400596968122" onclick="clickCount('grupo5')">
 Bazar Nova Friburgo Oficial
+<span class="counter" id="grupo5">Carregando...</span>
 </a>
 
-<a class="button facebook" href="https://www.facebook.com/groups/1701420920091706" target="_blank">
+<a class="button facebook" href="https://www.facebook.com/groups/1701420920091706" onclick="clickCount('grupo6')">
 Bazar Nova Friburgo e Região
+<span class="counter" id="grupo6">Carregando...</span>
 </a>
 
-<a class="button facebook" href="https://www.facebook.com/groups/carrosnf" target="_blank">
+<a class="button facebook" href="https://www.facebook.com/groups/carrosnf" onclick="clickCount('grupo7')">
 Desapega Nova Friburgo
+<span class="counter" id="grupo7">Carregando...</span>
 </a>
 
 </div>
+
+<script>
+
+function clickCount(id){
+
+fetch("https://api.countapi.xyz/hit/gruposadm/"+id);
+
+}
+
+function loadCounts(){
+
+let grupos = ["grupo1","grupo2","grupo3","grupo4","grupo5","grupo6","grupo7"];
+
+grupos.forEach(function(g){
+
+fetch("https://api.countapi.xyz/get/gruposadm/"+g)
+.then(response => response.json())
+.then(data => {
+
+document.getElementById(g).innerHTML = "👆 "+data.value+" cliques";
+
+});
+
+});
+
+}
+
+loadCounts();
+
+</script>
 
 </body>
 </html>
